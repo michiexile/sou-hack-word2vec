@@ -39,7 +39,7 @@ class MySentences:
 			tokens = cleaned.split()
 			yield tokens
 
-sentences = MySentences("/Users/mos/Downloads/SOUtxtAllBigFile.txt")
+sentences = MySentences(infile)
 model = models.Word2Vec(sentences,size=200,window=5,min_count=30,workers=4)
 
 model.save(outfile)
