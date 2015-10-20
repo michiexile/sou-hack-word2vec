@@ -31,7 +31,7 @@ var svg = d3.select("body").append("svg")
     .attr("width", width)
     .attr("height", height);
 
-d3.json("exampledata.json", function(error, graph) {
+d3.json("references.json", function(error, graph) {
   if (error) throw error;
 
   force
@@ -47,10 +47,12 @@ d3.json("exampledata.json", function(error, graph) {
 
   var node = svg.selectAll(".node")
       .data(graph.nodes)
-    .enter().append("circle")
-      .attr("class", "node")
-      .attr("r", 5)
-      .style("fill", function(d) { return color(d.group); })
+//    .enter().append("circle")
+//      .attr("class", "node")
+//      .attr("r", 5)
+//      .style("fill", function(d) { return color(d.group); })
+      .enter().append("text")
+            .text(function(d) { return d.name; })
       .call(force.drag);
 
   node.append("title")
@@ -62,8 +64,8 @@ d3.json("exampledata.json", function(error, graph) {
         .attr("x2", function(d) { return d.target.x; })
         .attr("y2", function(d) { return d.target.y; });
 
-    node.attr("cx", function(d) { return d.x; })
-        .attr("cy", function(d) { return d.y; });
+    node.attr("x", function(d) { return d.x; })
+        .attr("y", function(d) { return d.y; });
   });
 });
 
