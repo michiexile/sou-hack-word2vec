@@ -22,4 +22,4 @@ Exempel:
 För att få ut topp 10 relaterade ord för en viss textfil sparad som word2vec-modell:
 python word_similarity_word2vec -m [model] -w [word]
 Exempel:
-'python word_similarity_word2vec -m "/Users/mos/Dropbox/projects/sou-hack-word2vec/models/model-20.pickle" -w "demokrati"
+'python word_similarity_word2vec.py -m "/Users/mos/Dropbox/projects/sou-hack-word2vec/models/model-20.pickle" -w "demokrati"
