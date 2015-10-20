@@ -55,4 +55,4 @@ for i,dec in enumerate([1920,1930,1940,1950,1960,1970,1980,1990]):
 nodes = list({':'.join(k) for k in references for r in references[k]}.
              union({':'.join(r) for k in references for r in references[k]}))
 links = [{'source': nodes.index(':'.join(k)), 'target': nodes.index(':'.join(r))}
-         for k in references for r in references[k]]
+         for k in references for r in references[k] if k != r]
