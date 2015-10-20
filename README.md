@@ -15,7 +15,7 @@ Vi väljer ut några ord och kör dem "manuellt" mot alla våra modeller (en mod
 
 # Användning
 För att skapa en model från en textfil:
-python create_word2vec_model.py -i [input-file] -0 [output-file]
+python create_word2vec_model.py -i [input-file] -o [output-file]
 Exempel:
 'python create_word2vec_model.py -i "/Users/mos/Downloads/SOUtxtDecadeFiles/30talstortxtfil.txt" -o "/Users/mos/Dropbox/projects/sou-hack-word2vec/30tal.model"
 
