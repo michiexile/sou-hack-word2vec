@@ -38,4 +38,5 @@ class MySentences(args.input):
 
 sentences = MySentences("/Users/mos/Downloads/SOUtxtAllBigFile.txt")
 model = models.Word2Vec(sentences,size=200,window=5,min_count=30,workers=4)
-model.save(args.output)
+outfile = args.output
+model.save(outfile)
