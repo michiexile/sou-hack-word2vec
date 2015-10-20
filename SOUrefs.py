@@ -50,3 +50,9 @@ for i,dec in enumerate([1920,1930,1940,1950,1960,1970,1980,1990]):
     results = model.fit()
     print(dec)
     print(results.summary())
+
+
+nodes = [{'name': name} for name in {':'.join(k) for k in references for r in references[k]}.
+             union({':'.join(r) for k in references for r in references[k]})]
+links = [{'source': nodes.index(':'.join(k)), 'target': nodes.index(':'.join(r))}
+         for k in references for r in references[k] if k != r]

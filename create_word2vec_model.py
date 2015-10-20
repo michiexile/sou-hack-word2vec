@@ -11,10 +11,23 @@ import regex
 import logging
 import gensim
 from gensim import corpora, models
+import argparse
+
+parser = argparse.ArgumentParser()
+parser.add_argument("-i","--input", help="""
+Name for the file you want to analyze e.g. "SOUtxtAllBigFile.txt" 
+The file is supposed to be stored in the current folder if not specified
+specificly.""",default="",required=True)
+parser.add_argument("-o","--output", help="""
+Name for the model file you create e.g. "20talet.model" 
+The file is stored in the current folder if not specified
+specificly.""",default="./my_model.model",required=True)
+
+args = parser.parse_args()
 
 logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.INFO)
 
-class MySentences(object):
+class MySentences(args.input):
     def __init__(self, fname):
         self.fname = fname
     def __iter__(self):
@@ -25,3 +38,5 @@ class MySentences(object):
 
 sentences = MySentences("/Users/mos/Downloads/SOUtxtAllBigFile.txt")
 model = models.Word2Vec(sentences,size=200,window=5,min_count=30,workers=4)
+outfile = args.output
+model.save(outfile)
