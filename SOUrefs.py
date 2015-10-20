@@ -11,17 +11,21 @@ import scipy as sp
 
 SOUre = re.compile("SOU\s*(\d+)\s*:\s*(\d+)")
 
-references = defaultdict(set)
+if False:
+    references = defaultdict(set)
 
-for filename in glob.glob("TXT/*/*txt"):
-    match = SOUre.search(filename)
-    ref = match.groups()
-    print("%s:%s" % ref)
-    with open(filename, 'r') as f:
-        soutext = f.read()
-        for match in SOUre.finditer(soutext):
-            print("\t%s:%s" % match.groups())
-            references[ref].add(match.groups())
+    for filename in glob.glob("TXT/*/*txt"):
+        match = SOUre.search(filename)
+        ref = match.groups()
+        print("%s:%s" % ref)
+        with open(filename, 'r') as f:
+            soutext = f.read()
+            for match in SOUre.finditer(soutext):
+                print("\t%s:%s" % match.groups())
+                references[ref].add(match.groups())
+else:
+    import pickle
+    references = pickle.load(open('references.pickle', 'rb'))
 
 difftimes = dict()
 for k in references:
@@ -52,7 +56,15 @@ for i,dec in enumerate([1920,1930,1940,1950,1960,1970,1980,1990]):
     print(results.summary())
 
 
-nodes = [{'name': name} for name in {':'.join(k) for k in references for r in references[k]}.
+nodelist = [name for name in {':'.join(k) for k in references for r in references[k]}.
              union({':'.join(r) for k in references for r in references[k]})]
-links = [{'source': nodes.index(':'.join(k)), 'target': nodes.index(':'.join(r))}
+links = [{'source': nodelist.index(':'.join(k)), 'target': nodelist.index(':'.join(r))}
          for k in references for r in references[k] if k != r]
+nodes = [{'name':name} for name in nodelist]
+
+dotfile = 'references.dot'
+with open(dotfile, 'w') as f:
+    print('digraph {', file=f)
+    for e in links:
+        print('\t"%s" -> "%s"' % (nodes[e['source']]['name'], nodes[e['target']]['name']), file=f)
+    print('}', file=f)

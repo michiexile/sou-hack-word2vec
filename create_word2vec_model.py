@@ -25,17 +25,21 @@ specificly.""",default="./my_model.model",required=True)
 
 args = parser.parse_args()
 
+outfile = args.output
+infile = args.input
+
 logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.INFO)
 
-class MySentences(args.input):
-    def __init__(self, fname):
-        self.fname = fname
-    def __iter__(self):
-        for line in open(self.fname):
-            cleaned = regex.sub(r"[\:\!\?\.\,]","",line)
-            tokens = cleaned.split()
-            yield tokens
+class MySentences:
+	def __init__(self, infile):
+		self.infile = infile
+	def __iter__(self):
+		for line in open(self.infile):
+			cleaned = regex.sub(r"[\:\!\?\.\,]","",line)
+			tokens = cleaned.split()
+			yield tokens
 
-sentences = MySentences("/Users/mos/Downloads/SOUtxtAllBigFile.txt")
+sentences = MySentences(infile)
 model = models.Word2Vec(sentences,size=200,window=5,min_count=30,workers=4)
-model.save(args.output)
+
+model.save(outfile)
