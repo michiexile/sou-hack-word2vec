@@ -23,4 +23,4 @@ input = args.model_file
 model = models.Word2Vec.load(input)
 word = args.word
 
-print(model.similarity(word))
+print(model.most_similar(word))
