@@ -8,7 +8,7 @@ from gensim import corpora, models
 import argparse
 
 parser = argparse.ArgumentParser()
-parser.add_argument("-m","--model-file", help="""
+parser.add_argument("-m","--model_file", help="""
 Name for the model file you want to use e.g. "20tal.model" 
 The file is supposed to be stored in the current folder if not specified
 specificly.""",default="",required=True)
@@ -18,6 +18,9 @@ specificly.""",default="",required=True)
 
 
 args = parser.parse_args()
+input = args.model_file
 
-model = model.load(args.model-file)
-print(model.similarity(args.word))
+model = models.Word2Vec.load(input)
+word = args.word
+
+print(model.similarity(word))
